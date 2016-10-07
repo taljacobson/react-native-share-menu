@@ -9,8 +9,13 @@ import com.facebook.react.bridge.Callback;
 
 import com.meedan.ShareMenuPackage;
 
-import java.util.Map;
+import org.json.JSONObject;
 
+import java.util.Map;
+import java.util.Set;
+import java.util.Iterator;
+
+import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 
@@ -33,5 +38,30 @@ public class ShareMenuModule extends ReactContextBaseJavaModule {
     String type = intent.getType();
     String inputText = intent.getStringExtra(Intent.EXTRA_TEXT);
     successCallback.invoke(inputText);
+  }
+
+  @ReactMethod
+  public void getSharedExtras(Callback successCallback) {
+    Activity mActivity = getCurrentActivity();
+    Intent intent = mActivity.getIntent();
+
+    StringBuilder str = new StringBuilder();
+    Bundle bundle = intent.getExtras();
+    if (bundle != null) {
+      Set keys = bundle.keySet();
+      Iterator it = keys.iterator();
+      str.append("{");
+      while (it.hasNext()) {
+        String key = (String) it.next();
+        str.append("\"" + key + "\"");
+        str.append(":");
+        str.append("\"" + bundle.get(key) + "\"");
+
+        if (it.hasNext()) str.append(",");
+      }
+      str.append("}");
+    }
+
+    successCallback.invoke(str.toString());
   }
 }
