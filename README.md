@@ -40,7 +40,7 @@ dependencies {
 </intent-filter>
 ```
 
-* Register module (in MainActivity.java)
+* Register module (in MainApplication.java)
 
 ```java
 import com.meedan.ShareMenuPackage;  // <--- import
@@ -51,7 +51,7 @@ public class MainActivity extends ReactActivity {
   protected List<ReactPackage> getPackages() {
     return Arrays.<ReactPackage>asList(
       new MainReactPackage(),
-      new ShareMenuPackage(this)  // <------ add here
+      new ShareMenuPackage()  // <------ add here
     );
   }
   ......
@@ -83,7 +83,7 @@ import ShareMenu from 'react-native-share-menu';
 
 class Test extends Component {
   constructor(props) {
-    super(props); 
+    super(props);
     this.state = {
       sharedText: null
     };
