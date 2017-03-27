@@ -42,6 +42,10 @@ public class ShareMenuModule extends ReactContextBaseJavaModule {
         Uri imageUri = (Uri) intent.getParcelableExtra(Intent.EXTRA_STREAM);
         successCallback.invoke(imageUri.toString());
       }
+      else if ( type.matches("(?i).*zip.*") ) {
+        Uri imageUri = (Uri) intent.getParcelableExtra(Intent.EXTRA_STREAM);
+        successCallback.invoke(imageUri.toString()); 
+      }
     }
   }
 
