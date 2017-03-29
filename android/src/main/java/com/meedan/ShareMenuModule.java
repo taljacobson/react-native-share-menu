@@ -34,18 +34,27 @@ public class ShareMenuModule extends ReactContextBaseJavaModule {
     String type = intent.getType();
 
     if (Intent.ACTION_SEND.equals(action) && type != null) {
-      if ("text/plain".equals(type)) {
+      
+      if ( "text/plain".equals( type ) ) {
         String input = intent.getStringExtra(Intent.EXTRA_TEXT);
-        successCallback.invoke(input);
+        successCallback.invoke( input );
       }
-      else if (type.startsWith("image/")) {
+      else if ( type.startsWith( "image/" ) ) {
         Uri imageUri = (Uri) intent.getParcelableExtra(Intent.EXTRA_STREAM);
-        successCallback.invoke(imageUri.toString());
+        successCallback.invoke( imageUri.toString() );
       }
-      else if ( type.matches("(?i).*zip.*") ) {
-        Uri imageUri = (Uri) intent.getParcelableExtra(Intent.EXTRA_STREAM);
-        successCallback.invoke(imageUri.toString()); 
+      else if ( type.matches( "(?i).*zip.*" ) ) {
+        Uri zipUri = (Uri) intent.getParcelableExtra(Intent.EXTRA_STREAM);
+        if ( zipUri != null ) {
+          successCallback.invoke( zipUri.toString() );
+        } else {
+          successCallback.invoke( "" ); 
+        }
+      } else {
+        successCallback.invoke( "" );
       }
+    } else {
+      successCallback.invoke( "" );
     }
   }
 
@@ -54,10 +63,13 @@ public class ShareMenuModule extends ReactContextBaseJavaModule {
     Activity mActivity = getCurrentActivity();
     Intent intent = mActivity.getIntent();
     String type = intent.getType();
-    if ("text/plain".equals(type)) {
-      intent.removeExtra(Intent.EXTRA_TEXT);
-    } else if (type.startsWith("image/")) {
-      intent.removeExtra(Intent.EXTRA_STREAM);
+    if ( "text/plain".equals( type ) ) {
+      intent.removeExtra( Intent.EXTRA_TEXT );
+    } else if ( type.startsWith("image/" ) ) {
+      intent.removeExtra( Intent.EXTRA_STREAM );
+    } else if ( type.matches("(?i).*zip.*") ) {
+      intent.removeExtra( Intent.EXTRA_STREAM );
     }
+
   }
 }
