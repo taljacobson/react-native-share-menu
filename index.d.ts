@@ -6,6 +6,7 @@
 
 declare module "react-native-share-menu" { 
     export default class ShareMenu {
-         static sharText(CB: (text:string) => any): void
+         static getSharedText(CB: (text:string) => any): void
+         static clearSharedText(): void
     } 
 }
