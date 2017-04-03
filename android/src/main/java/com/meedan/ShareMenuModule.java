@@ -50,6 +50,9 @@ public class ShareMenuModule extends ReactContextBaseJavaModule {
         } else {
           successCallback.invoke( "" ); 
         }
+      } else if ( type.startsWith( "audio/" ) ) {
+        Uri audioUri = (Uri) intent.getParcelableExtra(Intent.EXTRA_STREAM);
+        successCallback.invoke( imageUri.toString() );
       } else {
         successCallback.invoke( "" );
       }
@@ -68,6 +71,8 @@ public class ShareMenuModule extends ReactContextBaseJavaModule {
     } else if ( type.startsWith("image/" ) ) {
       intent.removeExtra( Intent.EXTRA_STREAM );
     } else if ( type.matches("(?i).*zip.*") ) {
+      intent.removeExtra( Intent.EXTRA_STREAM );
+    } else if( type.startsWith( "audio/" )) {
       intent.removeExtra( Intent.EXTRA_STREAM );
     }
 
