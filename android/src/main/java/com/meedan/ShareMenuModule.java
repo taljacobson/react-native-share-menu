@@ -50,9 +50,14 @@ public class ShareMenuModule extends ReactContextBaseJavaModule {
         } else {
           successCallback.invoke( "" ); 
         }
-      } else if ( type.startsWith( "audio/" ) ) {
+      } 
+      else if ( type.startsWith( "audio/" ) ) {
         Uri audioUri = (Uri) intent.getParcelableExtra(Intent.EXTRA_STREAM);
-        successCallback.invoke( audioUri.toString() );
+        if( audioUri != null ) {
+          successCallback.invoke( audioUri.toString() );
+        } else {
+          successCallback.invoke( "" )
+        }
       } else {
         successCallback.invoke( "" );
       }
