@@ -56,7 +56,7 @@ public class ShareMenuModule extends ReactContextBaseJavaModule {
         if( audioUri != null ) {
           successCallback.invoke( audioUri.toString() );
         } else {
-          successCallback.invoke( "" )
+          successCallback.invoke( "" );
         }
       } else {
         successCallback.invoke( "" );
