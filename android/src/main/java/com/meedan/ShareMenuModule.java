@@ -52,7 +52,7 @@ public class ShareMenuModule extends ReactContextBaseJavaModule {
         }
       } else if ( type.startsWith( "audio/" ) ) {
         Uri audioUri = (Uri) intent.getParcelableExtra(Intent.EXTRA_STREAM);
-        successCallback.invoke( imageUri.toString() );
+        successCallback.invoke( audioUri.toString() );
       } else {
         successCallback.invoke( "" );
       }
