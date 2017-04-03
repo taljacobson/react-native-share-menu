@@ -47,6 +47,9 @@ dependencies {
    <action android:name="android.intent.action.SEND" />
    <category android:name="android.intent.category.DEFAULT" />
    <data android:mimeType="text/plain" />
+   and/or
+   <data android:mimeType="image/*" />
+   <data android:mimeType="audio/*" />
 </intent-filter>
 ```
 
