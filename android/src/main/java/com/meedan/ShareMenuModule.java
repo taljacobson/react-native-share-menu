@@ -10,7 +10,6 @@ import com.facebook.react.bridge.Callback;
 import com.meedan.ShareMenuPackage;
 
 import org.json.JSONObject;
-import org.json.JSONException;
 
 import java.util.Map;
 import java.util.Set;
@@ -62,21 +61,15 @@ public class ShareMenuModule extends ReactContextBaseJavaModule {
         str.append("\"" + key + "\"");
         str.append(":");
         String fieldValue = "" + bundle.get(key);
-        String escapedValue = fieldValue.replaceAll("\"", "\\\"");
-        str.append("\"" + escapedValue + "\"");
+        str.append("\"");
+        str.append(fieldValue.replaceAll("\"", "\\\""));
+        str.append("\"");
 
         if (it.hasNext()) str.append(",");
       }
       str.append("}");
-
-      try {
-        JSONObject jsonObj = new JSONObject(str.toString());
-        successCallback.invoke(jsonObj);
-      } catch (JSONException e) {
-        successCallback.invoke("{\"android.intent.extra.TEXT\":\"Error\"}");
-      }
-    } else {
-      successCallback.invoke("");
     }
+
+    successCallback.invoke(str.toString());
   }
 }
