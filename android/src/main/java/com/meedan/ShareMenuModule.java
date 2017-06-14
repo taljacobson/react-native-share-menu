@@ -10,6 +10,7 @@ import com.facebook.react.bridge.Callback;
 import com.meedan.ShareMenuPackage;
 
 import org.json.JSONObject;
+import org.json.JSONException;
 
 import java.util.Map;
 import java.util.Set;
