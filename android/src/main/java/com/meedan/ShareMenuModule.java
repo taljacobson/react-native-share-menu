@@ -69,8 +69,7 @@ public class ShareMenuModule extends ReactContextBaseJavaModule {
       str.append("}");
     }
 
-    JSONObject jsonObj = new JSONObject();
-    jsonObj.append(str);
+    JSONObject jsonObj = new JSONObject(str.toString());
     successCallback.invoke(jsonObj);
   }
 }
