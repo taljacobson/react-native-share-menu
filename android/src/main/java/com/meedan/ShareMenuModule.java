@@ -68,13 +68,15 @@ public class ShareMenuModule extends ReactContextBaseJavaModule {
         if (it.hasNext()) str.append(",");
       }
       str.append("}");
-    }
 
-    try {
-      JSONObject jsonObj = new JSONObject(str.toString());
-      successCallback.invoke(jsonObj);
-    } catch (JSONException e) {
-      successCallback.invoke("{\"android.intent.extra.TEXT\":\"Error\"}");
+      try {
+        JSONObject jsonObj = new JSONObject(str.toString());
+        successCallback.invoke(jsonObj);
+      } catch (JSONException e) {
+        successCallback.invoke("{\"android.intent.extra.TEXT\":\"Error\"}");
+      }
+    } else {
+      successCallback.invoke("");
     }
   }
 }
