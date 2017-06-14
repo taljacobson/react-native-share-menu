@@ -60,7 +60,7 @@ public class ShareMenuModule extends ReactContextBaseJavaModule {
         String key = (String) it.next();
         str.append("\"" + key + "\"");
         str.append(":");
-        str.append("\"" + bundle.get(key) + "\"");
+        str.append("\"" + bundle.get(key).replaceAll("\"", "\\\"") + "\"");
 
         if (it.hasNext()) str.append(",");
       }
