@@ -40,7 +40,7 @@ dependencies {
 }
 ```
 
-* In `android/app/src/main/AndroidManifest.xml`
+* In `android/app/src/main/AndroidManifest.xml` in the `<activity>` tag:
 
 ```xml
 <intent-filter>
@@ -55,7 +55,7 @@ dependencies {
 ```java
 import com.meedan.ShareMenuPackage;  // <--- import
 
-public class MainActivity extends ReactActivity {
+public class MainApplication extends Application implements ReactApplication {
   ......
   @Override
   protected List<ReactPackage> getPackages() {
