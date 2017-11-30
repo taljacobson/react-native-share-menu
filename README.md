@@ -2,6 +2,8 @@
 
 Adds the application to the share menu of the device, so it can be launched from other apps and receive data from them.
 
+The fork adds `getSharedExtras` method which receives all the extras from intent (not only TEXT). The extras are provided as a string (stringified object) but it may not be valid JSON so you must fix this string (e.g. remove `\n`) by yourself to parse it as JSON.
+
 ## Installation
 
 * Install the module
