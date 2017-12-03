@@ -2,6 +2,8 @@
 
 Adds the application to the share menu of the device, so it can be launched from other apps and receive data from them.
 
+The fork adds `getSharedExtras` method which receives all the extras from intent (not only TEXT). The extras are provided as a string (stringified object) but it may not be valid JSON so you must fix this string (e.g. remove `\n`) by yourself to parse it as JSON.
+
 ## Installation
 
 * Install the module
@@ -64,7 +66,7 @@ public class MainApplication extends Application implements ReactApplication {
   protected List<ReactPackage> getPackages() {
     return Arrays.<ReactPackage>asList(
       new MainReactPackage(),
-      new ShareMenuPackage(this)  // <------ add here
+      new ShareMenuPackage()  // <------ add here
     );
   }
   ......
@@ -96,7 +98,7 @@ import ShareMenu from 'react-native-share-menu';
 
 class Test extends Component {
   constructor(props) {
-    super(props); 
+    super(props);
     this.state = {
       sharedText: null
     };
