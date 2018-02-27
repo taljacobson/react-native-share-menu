@@ -13,7 +13,6 @@ import com.facebook.react.uimanager.ViewManager;
 import com.meedan.ShareMenuModule;
 
 public class ShareMenuPackage implements ReactPackage {
-
   public ShareMenuPackage() {
     super();
   }

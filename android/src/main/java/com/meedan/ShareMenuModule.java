@@ -9,22 +9,21 @@ import com.facebook.react.bridge.Callback;
 
 import com.meedan.ShareMenuPackage;
 
-import org.json.JSONObject;
-
 import java.util.Map;
-import java.util.Set;
-import java.util.Iterator;
 
-import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
 
 public class ShareMenuModule extends ReactContextBaseJavaModule {
 
   public ShareMenuModule(ReactApplicationContext reactContext) {
     super(reactContext);
   }
+
+  protected void onNewIntent(Intent intent) {
+    Activity mActivity = getCurrentActivity();
+    mActivity.setIntent(intent);
+  } 
 
   @Override
   public String getName() {
@@ -43,32 +42,17 @@ public class ShareMenuModule extends ReactContextBaseJavaModule {
       if ( "text/plain".equals( type ) ) {
         String input = intent.getStringExtra(Intent.EXTRA_TEXT);
         successCallback.invoke( input );
-      }
-      else if ( type.startsWith( "image/" ) ) {
-        Uri imageUri = (Uri) intent.getParcelableExtra(Intent.EXTRA_STREAM);
-        successCallback.invoke( imageUri.toString() );
-      }
-      else if ( type.matches( "(?i).*zip.*" ) ) {
-        Uri zipUri = (Uri) intent.getParcelableExtra(Intent.EXTRA_STREAM);
-        if ( zipUri != null ) {
-          successCallback.invoke( zipUri.toString() );
-        } else {
+      } 
+      else { 
+        Uri StreamUri = (Uri) intent.getParcelableExtra(Intent.EXTRA_STREAM);
+        if ( StreamUri != null ) {
+          successCallback.invoke( StreamUri.toString() );
+        } 
+        else {
           successCallback.invoke( "" ); 
         }
-      } 
-      else if ( type.startsWith( "audio/" ) ) {
-        Uri audioUri = (Uri) intent.getParcelableExtra(Intent.EXTRA_STREAM);
-        if( audioUri != null ) {
-          successCallback.invoke( audioUri.toString() );
-        } else {
-          successCallback.invoke( "" );
-        }
-      } else {
-        successCallback.invoke( "" );
       }
-    } else {
-      successCallback.invoke( "" );
-    }
+      }
   }
 
   @ReactMethod
@@ -78,17 +62,12 @@ public class ShareMenuModule extends ReactContextBaseJavaModule {
     String type = intent.getType();
     if ( "text/plain".equals( type ) ) {
       intent.removeExtra( Intent.EXTRA_TEXT );
-    } else if ( type.startsWith("image/" ) ) {
-      intent.removeExtra( Intent.EXTRA_STREAM );
-    } else if ( type.matches("(?i).*zip.*") ) {
-      intent.removeExtra( Intent.EXTRA_STREAM );
-    } else if( type.startsWith( "audio/" )) {
+    } else {
       intent.removeExtra( Intent.EXTRA_STREAM );
     }
-
   }
-
-  @ReactMethod
+  
+   @ReactMethod
   public void getSharedExtras(Callback successCallback) {
     Activity mActivity = getCurrentActivity();
     Intent intent = mActivity.getIntent();
