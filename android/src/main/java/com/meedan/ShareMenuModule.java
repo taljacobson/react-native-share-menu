@@ -6,7 +6,10 @@ import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.Callback;
-
+import java.util.Set;
+import java.util.Iterator;
+import android.os.Bundle;
+import android.net.Uri;
 import com.meedan.ShareMenuPackage;
 
 import java.util.Map;
